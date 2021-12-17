@@ -10,7 +10,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-class RetrofitClient{
+class RetrofitClient {
 
     private val okHttpClient = OkHttpClient()
         .newBuilder()
@@ -33,7 +33,11 @@ class RetrofitClient{
         .build()
 
     fun provideCharacterApiService(): CharacterApiService = provideRetrofit.create(
-        CharacterApiService::class.java
-    )
+        CharacterApiService::class.java)
 
+    fun provideEpisodeApiService(): EpisodeApiService = provideRetrofit.create(
+        EpisodeApiService::class.java)
+
+    fun provideLocationApiService(): LocationApiService = provideRetrofit.create(
+        LocationApiService::class.java)
 }

@@ -1,16 +1,16 @@
-package com.example.kotikprob.ui.viewModel
+package com.example.kotikprob.ui.fragments.character
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
+import com.example.kotikprob.common.base.BaseViewModel
 import com.example.kotikprob.data.repository.CharacterRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class CharacterViewModel @Inject constructor(
     private val repository: CharacterRepository
-) : ViewModel() {
+) : BaseViewModel() {
 
     fun fetchCharacters() = repository.fetchCharacters().cachedIn(viewModelScope)
 }

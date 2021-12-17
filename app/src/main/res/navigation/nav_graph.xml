@@ -2,4 +2,74 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"/>
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/characterFragment">
+    <fragment
+        android:id="@+id/characterFragment"
+        android:name="com.example.kotikprob.ui.fragments.character.CharacterFragment"
+        android:label="fragment_character"
+        tools:layout="@layout/fragment_character" >
+        <action
+            android:id="@+id/action_characterFragment_to_characterDetailFragment"
+            app:destination="@id/characterDetailFragment" />
+        <action
+            android:id="@+id/action_characterFragment_to_myDialogFragment"
+            app:destination="@id/myDialogFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/characterDetailFragment"
+        android:name="com.example.kotikprob.ui.fragments.character.detail.CharacterDetailFragment"
+        android:label="fragment_character_detail"
+        tools:layout="@layout/fragment_character_detail" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/episodeFragment"
+        android:name="com.example.kotikprob.ui.fragments.episode.EpisodeFragment"
+        android:label="fragment_episode"
+        tools:layout="@layout/fragment_episode" >
+        <action
+            android:id="@+id/action_episodeFragment_to_episodeDetailFragment"
+            app:destination="@id/episodeDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/locationFragment"
+        android:name="com.example.kotikprob.ui.fragments.location.LocationFragment"
+        android:label="fragment_location"
+        tools:layout="@layout/fragment_location" >
+        <action
+            android:id="@+id/action_locationFragment_to_locationDetailFragment"
+            app:destination="@id/locationDetailFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/myDialogFragment"
+        android:name="com.example.kotikprob.ui.fragments.dialog.MyDialogFragment"
+        android:label="fragment_my_dialog"
+        tools:layout="@layout/fragment_my_dialog" >
+        <argument
+            android:name="image"
+            app:argType="string"
+            android:defaultValue="null" />
+    </dialog>
+    <fragment
+        android:id="@+id/episodeDetailFragment"
+        android:name="com.example.kotikprob.ui.fragments.episode.detail.EpisodeDetailFragment"
+        android:label="fragment_episode_detail"
+        tools:layout="@layout/fragment_episode_detail" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/locationDetailFragment"
+        android:name="com.example.kotikprob.ui.fragments.location.detail.LocationDetailFragment"
+        android:label="fragment_locatioin_detail"
+        tools:layout="@layout/fragment_locatioin_detail" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
+</navigation>

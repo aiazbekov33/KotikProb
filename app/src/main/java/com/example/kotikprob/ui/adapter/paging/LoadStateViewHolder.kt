@@ -7,7 +7,7 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotikprob.databinding.ItemLoadStateFooterViewBinding
 
-class LoadStateViewHolder (
+class LoadStateViewHolder(
     private val binding: ItemLoadStateFooterViewBinding,
     retry: () -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
