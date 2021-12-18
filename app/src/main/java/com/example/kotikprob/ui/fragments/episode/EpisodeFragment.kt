@@ -17,7 +17,9 @@ import com.example.kotikprob.databinding.FragmentEpisodeBinding
 import com.example.kotikprob.ui.adapter.episode.EpisodeAdapter
 import com.example.kotikprob.ui.adapter.paging.LoadStateAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class EpisodeFragment :
@@ -38,8 +40,10 @@ class EpisodeFragment :
 
     override fun setupObservers() {
         viewModel.fetchEpisodes().observe(viewLifecycleOwner) {
-            lifecycleScope.launch {
-                episodeAdapter.submitData(it)
+            this.lifecycleScope.launch(Dispatchers.IO){
+                withContext(Dispatchers.Main){
+                    episodeAdapter.submitData(it)
+                }
             }
         }
     }

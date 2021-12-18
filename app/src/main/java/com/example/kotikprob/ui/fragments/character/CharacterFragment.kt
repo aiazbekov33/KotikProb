@@ -17,7 +17,9 @@ import com.example.kotikprob.databinding.FragmentCharacterBinding
 import com.example.kotikprob.ui.adapter.character.CharacterAdapter
 import com.example.kotikprob.ui.adapter.paging.LoadStateAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class CharacterFragment :
@@ -56,11 +58,13 @@ class CharacterFragment :
     }
 
     override fun setupRequest() {
-        viewModel.fetchCharacters().observe(viewLifecycleOwner, {
-            this.lifecycleScope.launch {
-                characterAdapter.submitData(it)
+        viewModel.fetchCharacters().observe(viewLifecycleOwner) {
+            this.lifecycleScope.launch(Dispatchers.IO) {
+                 withContext(Dispatchers.Main) {
+            characterAdapter.submitData(it)
+                 }
             }
-        })
+        }
         Toast.makeText(requireContext(), "Character", Toast.LENGTH_LONG).show()
     }
 

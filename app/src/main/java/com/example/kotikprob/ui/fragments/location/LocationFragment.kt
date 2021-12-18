@@ -1,11 +1,9 @@
 package com.example.kotikprob.ui.fragments.location
 
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -18,7 +16,9 @@ import com.example.kotikprob.databinding.FragmentLocationBinding
 import com.example.kotikprob.ui.adapter.location.LocationAdapter
 import com.example.kotikprob.ui.adapter.paging.LoadStateAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class LocationFragment :
@@ -27,8 +27,6 @@ class LocationFragment :
     private lateinit var binding: FragmentLocationBinding
     private val viewModel: LocationViewModel by viewModels()
     private val locationAdapter = LocationAdapter(this::setupListeners)
-    private lateinit var handler: Handler
-    private lateinit var runnable: Runnable
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,17 +58,19 @@ class LocationFragment :
         locationAdapter.addLoadStateListener { loadStates ->
             recyclerLocation.isVisible = loadStates.refresh is LoadState.NotLoading
             progressBar.isVisible = loadStates.refresh is LoadState.Loading
-            binding.locationSwipeRefreshLayout.isRefreshing = loadStates.refresh is LoadState.Loading
+            binding.locationSwipeRefreshLayout.isRefreshing =
+                loadStates.refresh is LoadState.Loading
         }
     }
 
     override fun setupRequest() {
-        viewModel.fetchLocations().observe(viewLifecycleOwner, {
-            this.lifecycleScope.launch {
-                locationAdapter.submitData(it)
+        viewModel.fetchLocations().observe(viewLifecycleOwner) {
+            this.lifecycleScope.launch(Dispatchers.IO) {
+                withContext(Dispatchers.Main) {
+                    locationAdapter.submitData(it)
+                }
             }
-        })
-        Toast.makeText(requireContext(), "location", Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun setupListeners(id: Int) {
