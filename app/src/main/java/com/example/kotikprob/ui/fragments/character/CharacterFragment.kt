@@ -1,7 +1,6 @@
 package com.example.kotikprob.ui.fragments.character
 
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.kotikprob.R
 import com.example.kotikprob.common.base.BaseFragment
 import com.example.kotikprob.databinding.FragmentCharacterBinding
@@ -28,8 +27,6 @@ class CharacterFragment :
     private lateinit var binding: FragmentCharacterBinding
     private val characterAdapter =
         CharacterAdapter(this::setOnItemClickListener, this::setOnLongClickListener)
-    private lateinit var handler: Handler
-    private lateinit var runnable: Runnable
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,7 +42,8 @@ class CharacterFragment :
     }
 
     private fun setupCharacterRecycler() = with(binding) {
-        recyclerCharacter.layoutManager = LinearLayoutManager(context)
+        recyclerCharacter.layoutManager =
+            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         recyclerCharacter.adapter = characterAdapter.withLoadStateFooter(LoadStateAdapter {
             characterAdapter.retry()
         })
@@ -53,7 +51,7 @@ class CharacterFragment :
         characterAdapter.addLoadStateListener { loadStates ->
             recyclerCharacter.isVisible = loadStates.refresh is LoadState.NotLoading
             progressBar.isVisible = loadStates.refresh is LoadState.Loading
-//            swipeRefresh.isRefreshing = loadStates.refresh is LoadState.Loading
+            characterSwipeRefreshLayout.isRefreshing = loadStates.refresh is LoadState.Loading
         }
     }
 
@@ -79,16 +77,7 @@ class CharacterFragment :
         )
     }
 
-
-
-    override fun swiperefresh() {
-        binding.characterSwipeRefreshLayout.setOnRefreshListener {
-            runnable = Runnable {
-                binding.characterSwipeRefreshLayout.isRefreshing
-            }
-            handler.postDelayed(
-                runnable, 3000.toLong()
-            )
-        }
+    override fun swipeRefresh() {
+        binding.characterSwipeRefreshLayout.setOnRefreshListener { characterAdapter.refresh() }
     }
 }

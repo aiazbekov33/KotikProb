@@ -56,7 +56,7 @@ class EpisodeFragment :
         episodeAdapter.addLoadStateListener { loadStates ->
             recyclerEpisode.isVisible = loadStates.refresh is LoadState.NotLoading
             progressBar.isVisible = loadStates.refresh is LoadState.Loading
-            binding.episodeSwipeRefreshLayout.isRefreshing = false
+            episodeSwipeRefreshLayout.isRefreshing = loadStates.refresh is LoadState.Loading
         }
     }
 
@@ -70,15 +70,11 @@ class EpisodeFragment :
     }
 
     private fun setupListeners(id: Int) {
-        findNavController().navigate(
-            EpisodeFragmentDirections.actionEpisodeFragmentToEpisodeDetailFragment(id)
-        )
+        findNavController().navigate(EpisodeFragmentDirections.actionEpisodeFragmentToEpisodeDetailFragment(id))
     }
 
-    override fun swiperefresh() {
-        binding.episodeSwipeRefreshLayout.setOnRefreshListener {
-            episodeAdapter.refresh()
-        }
+    override fun swipeRefresh() {
+        binding.episodeSwipeRefreshLayout.setOnRefreshListener { episodeAdapter.refresh() }
     }
 }
 

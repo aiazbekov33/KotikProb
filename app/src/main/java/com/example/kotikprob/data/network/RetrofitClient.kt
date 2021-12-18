@@ -26,7 +26,7 @@ class RetrofitClient {
         }
     }
 
-    private val provideRetrofit = Retrofit.Builder()
+    val provideRetrofit = Retrofit.Builder()
         .baseUrl(Constants.BASE_URL)
         .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())

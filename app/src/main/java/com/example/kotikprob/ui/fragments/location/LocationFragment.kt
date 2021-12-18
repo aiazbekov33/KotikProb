@@ -60,7 +60,7 @@ class LocationFragment :
         locationAdapter.addLoadStateListener { loadStates ->
             recyclerLocation.isVisible = loadStates.refresh is LoadState.NotLoading
             progressBar.isVisible = loadStates.refresh is LoadState.Loading
-            binding.locationSwipeRefreshLayout.isRefreshing = false
+            binding.locationSwipeRefreshLayout.isRefreshing = loadStates.refresh is LoadState.Loading
         }
     }
 
@@ -79,12 +79,7 @@ class LocationFragment :
         )
     }
 
-    override fun swiperefresh() {
-        runnable = Runnable {
-            binding.locationSwipeRefreshLayout.isRefreshing
-        }
-        handler.postDelayed(
-            runnable, 3.toLong()
-        )
+    override fun swipeRefresh() {
+        binding.locationSwipeRefreshLayout.setOnRefreshListener { locationAdapter.refresh() }
     }
 }
