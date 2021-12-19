@@ -1,9 +1,9 @@
 package com.example.kotikprob.data.network
 
 import com.example.kotikprob.common.constant.Constants
-import com.example.kotikprob.data.network.apiService.CharacterApiService
-import com.example.kotikprob.data.network.apiService.EpisodeApiService
-import com.example.kotikprob.data.network.apiService.LocationApiService
+import com.example.kotikprob.data.network.apiservises.CharacterApiService
+import com.example.kotikprob.data.network.apiservises.EpisodeApiService
+import com.example.kotikprob.data.network.apiservises.LocationApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

@@ -26,6 +26,8 @@ class CharacterAdapter(
         )
     }
 
+
+
     inner class CharacterViewHolder(
 
         private val binding: ItemCharacterBinding

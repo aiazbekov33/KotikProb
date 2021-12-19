@@ -2,43 +2,63 @@ package com.example.kotikprob.ui.fragments.character.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import coil.load
+import com.example.kotikprob.R
+import com.example.kotikprob.common.base.BaseFragment
+import com.example.kotikprob.common.resource.Resource
 import com.example.kotikprob.databinding.FragmentCharacterDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CharacterDetailFragment : Fragment() {
+class CharacterDetailFragment : BaseFragment<CharacterDetailViewModel, FragmentCharacterDetailBinding>(R.layout.fragment_character_detail) {
 
     private val viewModel: CharacterDetailViewModel by viewModels()
-    private lateinit var binding: FragmentCharacterDetailBinding
+    private var _binding: FragmentCharacterDetailBinding? = null
+    private val binding get() = _binding!!
     private val args: CharacterDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentCharacterDetailBinding.inflate(layoutInflater)
+        _binding = FragmentCharacterDetailBinding.inflate(layoutInflater)
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupObservers()
+        setupRequests()
     }
 
-    private fun setupObservers() {
+
+    private fun setupRequests() = with(binding) {
         viewModel.fetchCharacter(args.id).observe(viewLifecycleOwner, {
-            binding.textName.text = it?.name
-            binding.textGender.text = it?.gender
-            binding.textSpecies.text = it?.species
-            binding.textLocation.text = it?.location.toString()
-            binding.imageCharacterDetail.load(it?.image)
+            progressBar.isVisible = it is Resource.Loading
+            groupMain.isVisible = it !is Resource.Loading
+            when (it) {
+                is Resource.Loading -> {
+                }
+                is Resource.Error -> {
+                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                }
+                is Resource.Success -> {
+                    it.data?.let { data ->
+                        binding.textName.text = data.name
+                        binding.textGender.text = data.gender
+                        binding.textSpecies.text = data.species
+                        binding.textLocation.text = data.location.toString()
+                        binding.imageCharacterDetail.load(data.image)
+                    }
+                }
+            }
         })
     }
 }

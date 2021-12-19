@@ -1,4 +1,4 @@
-package com.example.kotikprob.data.network.apiService
+package com.example.kotikprob.data.network.apiservises
 
 import com.example.kotikprob.data.network.dtos.RickAndMortyResponse
 import com.example.kotikprob.data.network.dtos.episode.Episode
@@ -14,6 +14,6 @@ interface EpisodeApiService {
     ) : RickAndMortyResponse<Episode>
 
     @GET("/api/episode/{id}")
-    fun fetchEpisode(@Path("id") id: Int
-    ) : Call<Episode>
+    suspend fun fetchEpisode(@Path("id") id: Int
+    ) : Episode
 }

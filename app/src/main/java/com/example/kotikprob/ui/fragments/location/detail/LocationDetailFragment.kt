@@ -1,43 +1,61 @@
 package com.example.kotikprob.ui.fragments.location.detail
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.example.kotikprob.R
+import com.example.kotikprob.common.base.BaseFragment
+import com.example.kotikprob.common.resource.Resource
 import com.example.kotikprob.databinding.FragmentLocatioinDetailBinding
-import com.example.kotikprob.databinding.FragmentLocatioinDetailBinding.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LocationDetailFragment : Fragment() {
+class LocationDetailFragment : BaseFragment<LocationDetailViewModel, FragmentLocatioinDetailBinding>(R.layout.fragment_locatioin_detail) {
+
     private val viewModel: LocationDetailViewModel by viewModels()
-    private lateinit var binding: FragmentLocatioinDetailBinding
+    private var _binding: FragmentLocatioinDetailBinding? = null
+    private val binding get() = _binding!!
     private val args: LocationDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
-        binding = inflate(layoutInflater)
+        _binding = FragmentLocatioinDetailBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupObservers()
+        setupRequests()
     }
 
-    private fun setupObservers() {
-        viewModel.fetchLocation(args.id).observe(viewLifecycleOwner) {
-                binding.textId.text = it?.id.toString()
-                binding.txtNameLocationDetail.text = it?.name
-                binding.textLocationDetail.text = it?.url
-                binding.textTypeLocationDetail.text = it?.type
-                binding.textIdLocationDetail.text = it?.dimension
-        }
+    private fun setupRequests() = with(binding) {
+        viewModel.fetchLocation(args.id).observe(viewLifecycleOwner, {
+            groupMain.isVisible = it !is Resource.Loading
+            when (it) {
+                is Resource.Loading -> {
+                }
+                is Resource.Error -> {
+                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                }
+                is Resource.Success -> {
+                    it.data?.let { data ->
+                        binding.textId.text = data.id.toString()
+                        binding.txtNameLocationDetail.text = data.name
+                        binding.textLocationDetail.text = data.url
+                        binding.textTypeLocationDetail.text = data.type
+                        binding.textIdLocationDetail.text = data.dimension
+                    }
+                }
+            }
+
+        })
     }
 }

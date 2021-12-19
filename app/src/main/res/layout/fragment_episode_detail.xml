@@ -9,7 +9,7 @@
     tools:context=".ui.fragments.episode.detail.EpisodeDetailFragment">
 
     <ProgressBar
-        android:id="@+id/loader_location_detail"
+        android:id="@+id/progress_bar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -134,6 +134,13 @@
         android:textSize="20sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_main"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:constraint_referenced_ids="text_id,text_air_date_episode_detail,
+text_create_detail,text_episode_detail,txt_name_episode_detail"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

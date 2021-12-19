@@ -3,7 +3,8 @@ package com.example.kotikprob.data.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.*
-import com.example.kotikprob.data.network.apiService.LocationApiService
+import com.example.kotikprob.common.base.BaseRepository
+import com.example.kotikprob.data.network.apiservises.LocationApiService
 import com.example.kotikprob.data.network.dtos.location.Location
 import com.example.kotikprob.data.network.pagingsources.LocationPagingSource
 import retrofit2.Call
@@ -13,7 +14,7 @@ import javax.inject.Inject
 
 class LocationRepository @Inject constructor(
     private val service: LocationApiService
-) {
+) : BaseRepository(){
 
     fun fetchLocations(): LiveData<PagingData<Location>>{
         return Pager(
@@ -28,17 +29,7 @@ class LocationRepository @Inject constructor(
 
     var location: LiveData<Location>? = null
 
-    fun fetchLocation(id: Int): MutableLiveData<Location?>{
-        val _location = MutableLiveData<Location?>()
-        service.fetchLocation(id).enqueue(object : Callback<Location>{
-            override fun onResponse(call: Call<Location>, response: Response<Location>) {
-            }
-
-            override fun onFailure(call: Call<Location>, t: Throwable) {
-                _location.value = null
-            }
-
-        })
-        return _location
+    fun fetchLocation(id: Int)=  doRequest{
+        service.fetchLocation(id)
     }
 }

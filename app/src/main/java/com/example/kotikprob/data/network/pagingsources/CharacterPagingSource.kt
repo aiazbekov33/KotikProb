@@ -1,7 +1,7 @@
 package com.example.kotikprob.data.network.pagingsources
 
 import com.example.kotikprob.common.base.BasePagingSource
-import com.example.kotikprob.data.network.apiService.CharacterApiService
+import com.example.kotikprob.data.network.apiservises.CharacterApiService
 import com.example.kotikprob.data.network.dtos.character.Character
 
 class CharacterPagingSource(

@@ -41,6 +41,7 @@ class CharacterFragment :
 
     override fun initialize() {
         setupCharacterRecycler()
+
     }
 
     private fun setupCharacterRecycler() = with(binding) {

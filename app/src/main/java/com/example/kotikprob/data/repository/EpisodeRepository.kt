@@ -6,7 +6,8 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
-import com.example.kotikprob.data.network.apiService.EpisodeApiService
+import com.example.kotikprob.common.base.BaseRepository
+import com.example.kotikprob.data.network.apiservises.EpisodeApiService
 import com.example.kotikprob.data.network.dtos.episode.Episode
 import com.example.kotikprob.data.network.pagingsources.EpisodePagingSource
 import retrofit2.Call
@@ -16,7 +17,7 @@ import javax.inject.Inject
 
 class EpisodeRepository @Inject constructor(
     private val service: EpisodeApiService
-) {
+) : BaseRepository(){
 
     fun fetchEpisodes(): LiveData<PagingData<Episode>> {
         return Pager(
@@ -30,19 +31,8 @@ class EpisodeRepository @Inject constructor(
     }
     var episode: LiveData<Episode>? = null
 
-    fun fetchEpisode(id: Int): MutableLiveData<Episode?> {
-        val _episode = MutableLiveData<Episode?>()
-        service.fetchEpisode(id).enqueue(object : Callback<Episode> {
-            override fun onResponse(call: Call<Episode>, response: Response<Episode>) {
-                if (response.isSuccessful) {
-                    _episode.value = response.body()
-                }
-            }
+    fun fetchEpisode(id: Int) = doRequest{
+        service.fetchEpisode(id)
 
-            override fun onFailure(call: Call<Episode>, t: Throwable) {
-                _episode.value = null
-            }
-        })
-        return _episode
     }
 }
