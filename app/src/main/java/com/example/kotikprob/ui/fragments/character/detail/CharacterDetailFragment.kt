@@ -52,6 +52,7 @@ class CharacterDetailFragment : BaseFragment<CharacterDetailViewModel, FragmentC
                 is Resource.Success -> {
                     it.data?.let { data ->
                         binding.textName.text = data.name
+                        binding.tvId.text = data.id.toString()
                         binding.textGender.text = data.gender
                         binding.textSpecies.text = data.species
                         binding.textLocation.text = data.location.toString()
