@@ -6,12 +6,12 @@ import androidx.lifecycle.viewModelScope
 import com.example.kotikprob.common.resource.Resource
 import com.example.kotikprob.presentation.state.UIState
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 open class BaseViewModel : ViewModel() {
-    protected fun <TDomain, T> MutableLiveData<UIState<T>>.subscribeTo(
-        request: () -> Flow<Resource<TDomain>>,
-        mappedData: (TDomain) -> T
+    protected fun <T> MutableStateFlow<UIState<T>>.subscribeTo(
+        request: () -> Flow<Resource<T>>,
     ) {
         viewModelScope.launch {
             request().collect {
@@ -23,7 +23,7 @@ open class BaseViewModel : ViewModel() {
                         this@subscribeTo.value = UIState.Error(error)
                     }
                     is Resource.Success -> it.data?.let { data ->
-                        this@subscribeTo.value = UIState.Success(mappedData(data))
+                        this@subscribeTo.value = UIState.Success(data)
                     }
                 }
             }

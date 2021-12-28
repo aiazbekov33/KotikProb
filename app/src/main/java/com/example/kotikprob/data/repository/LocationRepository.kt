@@ -1,22 +1,20 @@
 package com.example.kotikprob.data.repository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.paging.*
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.example.kotikprob.common.base.BaseRepository
 import com.example.kotikprob.data.network.apiservises.LocationApiService
 import com.example.kotikprob.data.network.dtos.location.Location
 import com.example.kotikprob.data.network.pagingsources.LocationPagingSource
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class LocationRepository @Inject constructor(
     private val service: LocationApiService
-) : BaseRepository(){
+) : BaseRepository() {
 
-    fun fetchLocations(): LiveData<PagingData<Location>>{
+    fun fetchLocations(): Flow<PagingData<Location>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 5
@@ -24,12 +22,10 @@ class LocationRepository @Inject constructor(
             pagingSourceFactory = {
                 LocationPagingSource(service)
             }
-        ).liveData
+        ).flow
     }
 
-    var location: LiveData<Location>? = null
-
-    fun fetchLocation(id: Int)=  doRequest{
+    fun fetchLocation(id: Int) = doRequest {
         service.fetchLocation(id)
     }
 }

@@ -6,7 +6,7 @@
     app:startDestination="@id/characterFragment">
     <fragment
         android:id="@+id/characterFragment"
-        android:name="com.example.kotikprob.ui.fragments.character.CharacterFragment"
+        android:name="com.example.kotikprob.presentation.ui.fragments.character.CharacterFragment"
         android:label="fragment_character"
         tools:layout="@layout/fragment_character" >
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/characterDetailFragment"
-        android:name="com.example.kotikprob.ui.fragments.character.detail.CharacterDetailFragment"
+        android:name="com.example.kotikprob.presentation.ui.fragments.character.detail.CharacterDetailFragment"
         android:label="fragment_character_detail"
         tools:layout="@layout/fragment_character_detail" >
         <argument
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/episodeFragment"
-        android:name="com.example.kotikprob.ui.fragments.episode.EpisodeFragment"
+        android:name="com.example.kotikprob.presentation.ui.fragments.episode.EpisodeFragment"
         android:label="fragment_episode"
         tools:layout="@layout/fragment_episode" >
         <action
@@ -37,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/locationFragment"
-        android:name="com.example.kotikprob.ui.fragments.location.LocationFragment"
+        android:name="com.example.kotikprob.presentation.ui.fragments.location.LocationFragment"
         android:label="fragment_location"
         tools:layout="@layout/fragment_location" >
         <action
@@ -46,7 +46,7 @@
     </fragment>
     <dialog
         android:id="@+id/myDialogFragment"
-        android:name="com.example.kotikprob.ui.fragments.dialog.MyDialogFragment"
+        android:name="com.example.kotikprob.presentation.ui.fragments.dialog.MyDialogFragment"
         android:label="fragment_my_dialog"
         tools:layout="@layout/fragment_my_dialog" >
         <argument
@@ -56,7 +56,7 @@
     </dialog>
     <fragment
         android:id="@+id/episodeDetailFragment"
-        android:name="com.example.kotikprob.ui.fragments.episode.detail.EpisodeDetailFragment"
+        android:name="com.example.kotikprob.presentation.ui.fragments.episode.detail.EpisodeDetailFragment"
         android:label="fragment_episode_detail"
         tools:layout="@layout/fragment_episode_detail" >
         <argument
@@ -65,7 +65,7 @@
     </fragment>
     <fragment
         android:id="@+id/locationDetailFragment"
-        android:name="com.example.kotikprob.ui.fragments.location.detail.LocationDetailFragment"
+        android:name="com.example.kotikprob.presentation.ui.fragments.location.detail.LocationDetailFragment"
         android:label="fragment_locatioin_detail"
         tools:layout="@layout/fragment_locatioin_detail" >
         <argument

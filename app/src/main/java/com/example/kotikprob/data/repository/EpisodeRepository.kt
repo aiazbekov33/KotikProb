@@ -10,6 +10,7 @@ import com.example.kotikprob.common.base.BaseRepository
 import com.example.kotikprob.data.network.apiservises.EpisodeApiService
 import com.example.kotikprob.data.network.dtos.episode.Episode
 import com.example.kotikprob.data.network.pagingsources.EpisodePagingSource
+import kotlinx.coroutines.flow.Flow
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -19,7 +20,7 @@ class EpisodeRepository @Inject constructor(
     private val service: EpisodeApiService
 ) : BaseRepository(){
 
-    fun fetchEpisodes(): LiveData<PagingData<Episode>> {
+    fun fetchEpisodes(): Flow<PagingData<Episode>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 5
@@ -27,9 +28,8 @@ class EpisodeRepository @Inject constructor(
             pagingSourceFactory = {
                 EpisodePagingSource(service)
             }
-        ).liveData
+        ).flow
     }
-    var episode: LiveData<Episode>? = null
 
     fun fetchEpisode(id: Int) = doRequest{
         service.fetchEpisode(id)

@@ -9,13 +9,14 @@ import com.example.kotikprob.common.base.BaseRepository
 import com.example.kotikprob.data.network.apiservises.CharacterApiService
 import com.example.kotikprob.data.network.dtos.character.Character
 import com.example.kotikprob.data.network.pagingsources.CharacterPagingSource
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class CharacterRepository @Inject constructor(
         private val service: CharacterApiService
 ) : BaseRepository() {
 
-    fun fetchCharacters(): LiveData<PagingData<Character>> {
+    fun fetchCharacters(): Flow<PagingData<Character>> {
         return Pager(
                 config = PagingConfig(
                         pageSize = 5,
@@ -23,7 +24,7 @@ class CharacterRepository @Inject constructor(
                 pagingSourceFactory = {
                     CharacterPagingSource(service)
                 }
-        ).liveData
+        ).flow
     }
 
     var character: LiveData<Character>? = null
