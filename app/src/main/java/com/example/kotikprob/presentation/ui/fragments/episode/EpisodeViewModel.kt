@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class EpisodeViewModel @Inject constructor(
-    private  val repository: EpisodeRepository
+    private val repository: EpisodeRepository
 ) : BaseViewModel() {
 
     fun fetchEpisodes() = repository.fetchEpisodes().cachedIn(viewModelScope)

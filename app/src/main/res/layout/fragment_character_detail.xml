@@ -12,17 +12,6 @@
     android:background="@drawable/newdialog"
     tools:context=".presentation.ui.fragments.character.detail.CharacterDetailFragment">
 
-<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_margin="32dp"-->
-<!--        android:background="@drawable/newdialog"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.5"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent">-->
-
         <ProgressBar
             android:id="@+id/progress_bar"
             style="?android:attr/progressBarStyle"
@@ -35,8 +24,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-
         <TextView
             android:id="@+id/tv_status"
             android:layout_width="wrap_content"
@@ -44,6 +31,7 @@
             android:text="Alive"
             android:textSize="24sp"
             android:textStyle="bold"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.1"
@@ -58,6 +46,7 @@
             android:text=""
             android:textSize="24sp"
             android:textStyle="bold"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.8"

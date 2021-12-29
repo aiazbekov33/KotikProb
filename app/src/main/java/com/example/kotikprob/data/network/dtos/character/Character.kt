@@ -28,4 +28,4 @@ data class Character(
     val url: String,
     @SerializedName("created")
     val created: String,
-): IBaseDiffModel
+) : IBaseDiffModel

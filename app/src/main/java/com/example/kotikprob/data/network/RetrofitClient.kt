@@ -33,11 +33,14 @@ class RetrofitClient {
         .build()
 
     fun provideCharacterApiService(): CharacterApiService = provideRetrofit.create(
-        CharacterApiService::class.java)
+        CharacterApiService::class.java
+    )
 
     fun provideEpisodeApiService(): EpisodeApiService = provideRetrofit.create(
-        EpisodeApiService::class.java)
+        EpisodeApiService::class.java
+    )
 
     fun provideLocationApiService(): LocationApiService = provideRetrofit.create(
-        LocationApiService::class.java)
+        LocationApiService::class.java
+    )
 }

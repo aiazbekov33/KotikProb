@@ -1,24 +1,18 @@
 package com.example.kotikprob.data.repository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import androidx.paging.liveData
 import com.example.kotikprob.common.base.BaseRepository
 import com.example.kotikprob.data.network.apiservises.EpisodeApiService
 import com.example.kotikprob.data.network.dtos.episode.Episode
 import com.example.kotikprob.data.network.pagingsources.EpisodePagingSource
 import kotlinx.coroutines.flow.Flow
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import javax.inject.Inject
 
 class EpisodeRepository @Inject constructor(
     private val service: EpisodeApiService
-) : BaseRepository(){
+) : BaseRepository() {
 
     fun fetchEpisodes(): Flow<PagingData<Episode>> {
         return Pager(
@@ -31,8 +25,7 @@ class EpisodeRepository @Inject constructor(
         ).flow
     }
 
-    fun fetchEpisode(id: Int) = doRequest{
+    fun fetchEpisode(id: Int) = doRequest {
         service.fetchEpisode(id)
-
     }
 }

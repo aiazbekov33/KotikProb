@@ -7,11 +7,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.navArgs
 import com.example.kotikprob.R
 import com.example.kotikprob.common.base.BaseFragment
-import com.example.kotikprob.common.resource.Resource
 import com.example.kotikprob.databinding.FragmentLocatioinDetailBinding
+import com.example.kotikprob.presentation.state.UIState
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,7 +20,6 @@ class LocationDetailFragment :
     private val viewModel: LocationDetailViewModel by viewModels()
     private var _binding: FragmentLocatioinDetailBinding? = null
     private val binding get() = _binding!!
-    private val args: LocationDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,19 +32,21 @@ class LocationDetailFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.fetchLocation(LocationDetailFragmentArgs.fromBundle(requireArguments()).id)
         setupRequests()
     }
 
     private fun setupRequests() = with(binding) {
-        viewModel.fetchLocation(args.id).observe(viewLifecycleOwner, {
-            groupMain.isVisible = it !is Resource.Loading
+        viewModel.locationState.subscribe {
+            progressBar.isVisible = it is UIState.Loading
+            groupMain.isVisible = it !is UIState.Loading
             when (it) {
-                is Resource.Loading -> {
+                is UIState.Loading -> {
                 }
-                is Resource.Error -> {
-                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                is UIState.Error -> {
+                    Toast.makeText(requireContext(), it.massage, Toast.LENGTH_SHORT).show()
                 }
-                is Resource.Success -> {
+                is UIState.Success -> {
                     it.data?.let { data ->
                         binding.textId.text = data.id.toString()
                         binding.txtNameLocationDetail.text = data.name
@@ -56,7 +56,6 @@ class LocationDetailFragment :
                     }
                 }
             }
-
-        })
+        }
     }
 }

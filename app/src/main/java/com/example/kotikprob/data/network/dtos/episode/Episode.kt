@@ -22,4 +22,4 @@ data class Episode(
 
     @SerializedName("created")
     val created: String
-): IBaseDiffModel
+) : IBaseDiffModel

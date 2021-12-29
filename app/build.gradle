@@ -70,6 +70,11 @@ dependencies {
     // | for LiveData
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
 
+    // Lifecycles only (without ViewModel or LiveData)
+    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version")
+
+    implementation "io.coil-kt:coil:1.3.2"
+
     //Retrofit
     def retrofit_version = "2.9.0"
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
@@ -117,11 +122,13 @@ dependencies {
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0-RC")
 
-
     // Fragment
     def fragmentVersion = "1.4.0"
     implementation("androidx.fragment:fragment-ktx:$fragmentVersion")
 
-
+    // Koin
+    def koin_version= "3.1.4"
+    // | for main features for Android
+    implementation "io.insert-koin:koin-android:$koin_version"
 
 }

@@ -7,20 +7,19 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.navArgs
 import com.example.kotikprob.R
 import com.example.kotikprob.common.base.BaseFragment
-import com.example.kotikprob.common.resource.Resource
 import com.example.kotikprob.databinding.FragmentEpisodeDetailBinding
+import com.example.kotikprob.presentation.state.UIState
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class EpisodeDetailFragment : BaseFragment<EpisodeDetailViewModel, FragmentEpisodeDetailBinding>(R.layout.fragment_episode_detail) {
+class EpisodeDetailFragment :
+    BaseFragment<EpisodeDetailViewModel, FragmentEpisodeDetailBinding>(R.layout.fragment_episode_detail) {
 
     private val viewModel: EpisodeDetailViewModel by viewModels()
     private var _binding: FragmentEpisodeDetailBinding? = null
     private val binding get() = _binding!!
-    private val args: EpisodeDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,20 +32,21 @@ class EpisodeDetailFragment : BaseFragment<EpisodeDetailViewModel, FragmentEpiso
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.fetchEpisode(EpisodeDetailFragmentArgs.fromBundle(requireArguments()).id)
         setupRequests()
     }
 
-    private fun setupRequests() = with(binding){
-        viewModel.fetchEpisode(args.id).observe(viewLifecycleOwner,{
-            progressBar.isVisible = it is Resource.Loading
-            groupMain.isVisible = it !is Resource.Loading
+    private fun setupRequests() = with(binding) {
+        viewModel.episodeState.subscribe {
+            progressBar.isVisible = it is UIState.Loading
+            groupMain.isVisible = it !is UIState.Loading
             when (it) {
-                is Resource.Loading -> {
+                is UIState.Loading -> {
                 }
-                is Resource.Error -> {
-                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                is UIState.Error -> {
+                    Toast.makeText(requireContext(), it.massage, Toast.LENGTH_SHORT).show()
                 }
-                is Resource.Success -> {
+                is UIState.Success -> {
                     it.data?.let { data ->
                         binding.textId.text = data.id.toString()
                         binding.textAirDateEpisodeDetail.text = data.air_date
@@ -56,6 +56,6 @@ class EpisodeDetailFragment : BaseFragment<EpisodeDetailViewModel, FragmentEpiso
                     }
                 }
             }
-        })
+        }
     }
 }

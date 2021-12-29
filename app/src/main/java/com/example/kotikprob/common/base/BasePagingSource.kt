@@ -8,7 +8,7 @@ import retrofit2.HttpException
 import java.io.IOException
 
 abstract class BasePagingSource<T : Any>(
-        private val request: suspend (position: Int) -> RickAndMortyResponse<T>
+    private val request: suspend (position: Int) -> RickAndMortyResponse<T>
 ) : PagingSource<Int, T>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, T> {
@@ -24,9 +24,9 @@ abstract class BasePagingSource<T : Any>(
             }
 
             LoadResult.Page(
-                    data = response.results,
-                    prevKey = null,
-                    nextKey = nextPageNumber
+                data = response.results,
+                prevKey = null,
+                nextKey = nextPageNumber
             )
         } catch (exception: IOException) {
             LoadResult.Error(exception)

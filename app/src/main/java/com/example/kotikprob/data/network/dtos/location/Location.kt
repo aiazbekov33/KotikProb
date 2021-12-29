@@ -23,4 +23,4 @@ data class Location(
     @SerializedName("created")
     val created: String
 
-): IBaseDiffModel
+) : IBaseDiffModel
