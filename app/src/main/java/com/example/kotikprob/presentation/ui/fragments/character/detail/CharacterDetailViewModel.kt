@@ -9,8 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
-@HiltViewModel
-class CharacterDetailViewModel @Inject constructor(
+class CharacterDetailViewModel (
     private val repository: CharacterRepository
 ) : BaseViewModel() {
 

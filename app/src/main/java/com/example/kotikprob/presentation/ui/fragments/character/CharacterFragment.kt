@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
@@ -16,14 +15,13 @@ import com.example.kotikprob.common.base.BaseFragment
 import com.example.kotikprob.databinding.FragmentCharacterBinding
 import com.example.kotikprob.presentation.ui.adapter.character.CharacterAdapter
 import com.example.kotikprob.presentation.ui.adapter.paging.LoadStateAdapter
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class CharacterFragment :
     BaseFragment<CharacterViewModel, FragmentCharacterBinding>(R.layout.fragment_character) {
 
-    private val viewModel: CharacterViewModel by viewModels()
+    private val viewModel: CharacterViewModel by viewModel()
     private lateinit var binding: FragmentCharacterBinding
     private val characterAdapter =
         CharacterAdapter(this::setOnItemClickListener, this::setOnLongClickListener)

@@ -8,9 +8,8 @@ import com.example.kotikprob.data.network.apiservises.EpisodeApiService
 import com.example.kotikprob.data.network.dtos.episode.Episode
 import com.example.kotikprob.data.network.pagingsources.EpisodePagingSource
 import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
 
-class EpisodeRepository @Inject constructor(
+class EpisodeRepository(
     private val service: EpisodeApiService
 ) : BaseRepository() {
 

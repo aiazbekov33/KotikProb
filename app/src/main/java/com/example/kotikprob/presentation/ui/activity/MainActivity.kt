@@ -9,7 +9,7 @@ import com.example.kotikprob.R
 import com.example.kotikprob.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding

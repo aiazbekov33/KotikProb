@@ -6,20 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.fragment.app.viewModels
 import coil.load
 import com.example.kotikprob.R
 import com.example.kotikprob.common.base.BaseFragment
 import com.example.kotikprob.databinding.FragmentCharacterDetailBinding
 import com.example.kotikprob.presentation.state.UIState
-import dagger.hilt.android.AndroidEntryPoint
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class CharacterDetailFragment :
     BaseFragment<CharacterDetailViewModel,
             FragmentCharacterDetailBinding>(R.layout.fragment_character_detail) {
 
-    private val viewModel: CharacterDetailViewModel by viewModels()
+    private val viewModel: CharacterDetailViewModel by viewModel()
     private var _binding: FragmentCharacterDetailBinding? = null
     private val binding get() = _binding!!
 

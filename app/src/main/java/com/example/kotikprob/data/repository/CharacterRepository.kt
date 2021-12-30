@@ -10,7 +10,7 @@ import com.example.kotikprob.data.network.pagingsources.CharacterPagingSource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class CharacterRepository @Inject constructor(
+class CharacterRepository (
     private val service: CharacterApiService
 ) : BaseRepository() {
 

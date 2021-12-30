@@ -11,7 +11,6 @@ import com.bumptech.glide.Glide
 import com.example.kotikprob.databinding.FragmentMyDialogBinding
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class MyDialogFragment : DialogFragment() {
 
     private var _binding: FragmentMyDialogBinding? = null

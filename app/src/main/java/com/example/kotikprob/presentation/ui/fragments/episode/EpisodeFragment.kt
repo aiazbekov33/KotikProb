@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
@@ -16,15 +15,14 @@ import com.example.kotikprob.common.base.BaseFragment
 import com.example.kotikprob.databinding.FragmentEpisodeBinding
 import com.example.kotikprob.presentation.ui.adapter.episode.EpisodeAdapter
 import com.example.kotikprob.presentation.ui.adapter.paging.LoadStateAdapter
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class EpisodeFragment :
     BaseFragment<EpisodeViewModel, FragmentEpisodeBinding>(R.layout.fragment_episode) {
 
     private lateinit var binding: FragmentEpisodeBinding
-    private val viewModel: EpisodeViewModel by viewModels()
+    private val viewModel: EpisodeViewModel by viewModel()
     private val episodeAdapter = EpisodeAdapter(this::setupListeners)
 
     override fun onCreateView(

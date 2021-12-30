@@ -4,13 +4,10 @@ import com.example.kotikprob.common.base.BaseViewModel
 import com.example.kotikprob.data.network.dtos.episode.Episode
 import com.example.kotikprob.data.repository.EpisodeRepository
 import com.example.kotikprob.presentation.state.UIState
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import javax.inject.Inject
 
-@HiltViewModel
-class EpisodeDetailViewModel @Inject constructor(
+class EpisodeDetailViewModel(
     private val repository: EpisodeRepository
 ) : BaseViewModel() {
 

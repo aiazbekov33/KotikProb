@@ -6,18 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.fragment.app.viewModels
 import com.example.kotikprob.R
 import com.example.kotikprob.common.base.BaseFragment
 import com.example.kotikprob.databinding.FragmentLocatioinDetailBinding
 import com.example.kotikprob.presentation.state.UIState
-import dagger.hilt.android.AndroidEntryPoint
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class LocationDetailFragment :
     BaseFragment<LocationDetailViewModel, FragmentLocatioinDetailBinding>(R.layout.fragment_locatioin_detail) {
 
-    private val viewModel: LocationDetailViewModel by viewModels()
+    private val viewModel: LocationDetailViewModel by viewModel()
     private var _binding: FragmentLocatioinDetailBinding? = null
     private val binding get() = _binding!!
 

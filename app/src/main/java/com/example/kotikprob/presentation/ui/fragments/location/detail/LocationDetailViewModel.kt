@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
-@HiltViewModel
 class LocationDetailViewModel @Inject constructor(
     private val repository: LocationRepository
 ) : BaseViewModel() {

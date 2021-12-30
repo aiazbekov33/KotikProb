@@ -6,18 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.fragment.app.viewModels
 import com.example.kotikprob.R
 import com.example.kotikprob.common.base.BaseFragment
 import com.example.kotikprob.databinding.FragmentEpisodeDetailBinding
 import com.example.kotikprob.presentation.state.UIState
-import dagger.hilt.android.AndroidEntryPoint
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class EpisodeDetailFragment :
     BaseFragment<EpisodeDetailViewModel, FragmentEpisodeDetailBinding>(R.layout.fragment_episode_detail) {
 
-    private val viewModel: EpisodeDetailViewModel by viewModels()
+    private val viewModel: EpisodeDetailViewModel by viewModel()
     private var _binding: FragmentEpisodeDetailBinding? = null
     private val binding get() = _binding!!
 
@@ -48,11 +46,11 @@ class EpisodeDetailFragment :
                 }
                 is UIState.Success -> {
                     it.data?.let { data ->
-                        binding.textId.text = data.id.toString()
-                        binding.textAirDateEpisodeDetail.text = data.air_date
-                        binding.textEpisodeDetail.text = data.episode
-                        binding.textCreateDetail.text = data.created
-                        binding.textIdEpisodeDetail.text = data.name
+                        textAirDateEpisodeDetail.text = data.air_date
+                        textEpisodeDetail.text = data.episode
+                        textCreateDetail.text = data.created
+                        textIdEpisodeDetail.text = data.id.toString()
+                        txtNameEpisodeDetail.text = data.name
                     }
                 }
             }
