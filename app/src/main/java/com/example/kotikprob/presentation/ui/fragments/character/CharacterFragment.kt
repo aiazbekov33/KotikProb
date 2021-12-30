@@ -15,6 +15,7 @@ import com.example.kotikprob.common.base.BaseFragment
 import com.example.kotikprob.databinding.FragmentCharacterBinding
 import com.example.kotikprob.presentation.ui.adapter.character.CharacterAdapter
 import com.example.kotikprob.presentation.ui.adapter.paging.LoadStateAdapter
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -56,7 +57,7 @@ class CharacterFragment :
 
     override fun setupRequest() {
         lifecycleScope.launch {
-            viewModel.fetchCharacters().collect { data ->
+            viewModel.fetchCharacters().collectLatest { data ->
                 characterAdapter.submitData(data)
             }
         }

@@ -15,6 +15,7 @@ import com.example.kotikprob.common.base.BaseFragment
 import com.example.kotikprob.databinding.FragmentEpisodeBinding
 import com.example.kotikprob.presentation.ui.adapter.episode.EpisodeAdapter
 import com.example.kotikprob.presentation.ui.adapter.paging.LoadStateAdapter
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -53,7 +54,7 @@ class EpisodeFragment :
 
     override fun setupRequest() {
         lifecycleScope.launch {
-            viewModel.fetchEpisodes().collect {
+            viewModel.fetchEpisodes().collectLatest {
                 episodeAdapter.submitData(it)
 
             }

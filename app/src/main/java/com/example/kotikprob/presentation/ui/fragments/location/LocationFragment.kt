@@ -14,6 +14,7 @@ import com.example.kotikprob.common.base.BaseFragment
 import com.example.kotikprob.databinding.FragmentLocationBinding
 import com.example.kotikprob.presentation.ui.adapter.location.LocationAdapter
 import com.example.kotikprob.presentation.ui.adapter.paging.LoadStateAdapter
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -53,7 +54,7 @@ class LocationFragment :
 
     override fun setupRequest() {
         lifecycleScope.launch {
-            viewModel.fetchLocations().collect() {
+            viewModel.fetchLocations().collectLatest {
                 locationAdapter.submitData(it)
             }
 
